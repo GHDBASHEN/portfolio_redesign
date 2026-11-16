@@ -93,7 +93,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Admin Portal — Basith Ashen</title>
+        <title>Admin Portal — GHDB Ashen</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 

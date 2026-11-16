@@ -6,6 +6,7 @@ import ProfilePortrait from '@/components/ui/ProfilePortrait';
 import ParticleField from '@/components/ui/ParticleField';
 import ProximityText from '@/components/ui/ProximityText';
 import ScrambleText from '@/components/ui/ScrambleText';
+import { GithubIcon, WhatsappIcon, FacebookIcon } from '@/components/ui/SocialIcons';
 import { PROFILE } from '@/lib/profile';
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } } };
@@ -19,7 +20,7 @@ const portraitIn = {
 };
 
 const LINE_1 = ["Hi,", "I'm", 'Ashen.'];
-const LINE_2 = ['I', 'engineer', 'software', 'that', 'feels'];
+const LINE_2 = ['Engineering','ideas' ,'into', 'powerful' ,'digital'];
 const TELEMETRY = [
   ['LOC', 'Kalutara, LK'],
   ['EDU', 'BICT (Hons) · Ruhuna'],
@@ -90,7 +91,7 @@ export default function HomeSection({ ready = true }) {
                     <ProximityText text={w} />
                   </motion.span>
                 ))}
-                <motion.span variants={item} className="text-gradient inline-block">effortless.</motion.span>
+                <motion.span variants={item} className="text-gradient inline-block">Solutions.</motion.span>
               </span>
             </h1>
 
@@ -121,6 +122,46 @@ export default function HomeSection({ ready = true }) {
                   <Download className="h-4 w-4" /> Download CV
                 </a>
               </Magnetic>
+
+              {/* Quick social links */}
+              <div className="flex items-center gap-2 pl-1">
+                <Magnetic strength={0.3}>
+                  <a
+                    href={PROFILE.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub Profile"
+                    data-cursor="GitHub"
+                    className="grid h-11 w-11 place-items-center rounded-2xl border border-zinc-900/10 bg-white/50 text-zinc-700 backdrop-blur transition hover:border-zinc-900/25 hover:bg-white hover:text-zinc-950 dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-300 dark:hover:border-white/25 dark:hover:bg-white/[0.08] dark:hover:text-white"
+                  >
+                    <GithubIcon className="h-4 w-4" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.3}>
+                  <a
+                    href={PROFILE.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chat on WhatsApp"
+                    data-cursor="WhatsApp"
+                    className="grid h-11 w-11 place-items-center rounded-2xl border border-zinc-900/10 bg-white/50 text-zinc-700 backdrop-blur transition hover:border-emerald-500/35 hover:bg-emerald-500/10 hover:text-emerald-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-300 dark:hover:border-emerald-400/35 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400"
+                  >
+                    <WhatsappIcon className="h-4 w-4" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.3}>
+                  <a
+                    href={PROFILE.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook Profile"
+                    data-cursor="Facebook"
+                    className="grid h-11 w-11 place-items-center rounded-2xl border border-zinc-900/10 bg-white/50 text-zinc-700 backdrop-blur transition hover:border-blue-500/35 hover:bg-blue-500/10 hover:text-blue-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-300 dark:hover:border-blue-400/35 dark:hover:bg-blue-500/10 dark:hover:text-blue-400"
+                  >
+                    <FacebookIcon className="h-4 w-4" />
+                  </a>
+                </Magnetic>
+              </div>
             </motion.div>
 
             <motion.dl
