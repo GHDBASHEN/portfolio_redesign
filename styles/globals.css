@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --accent: 124 92 255;
+    --accent-2: 34 211 238;
+    --accent-3: 236 72 153;
+    --border-c: rgba(9, 9, 11, 0.08);
+    --grid-c: rgba(9, 9, 11, 0.06);
+  }
+  .dark {
+    --border-c: rgba(255, 255, 255, 0.08);
+    --grid-c: rgba(255, 255, 255, 0.05);
+    color-scheme: dark;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased dark:bg-ink-950 dark:text-zinc-100;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgb(var(--accent) / 0.3); }
+  :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; }
+}
+
+@layer components {
+  .section { @apply relative mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 md:py-32; }
+  .eyebrow { @apply font-mono text-[11px] uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400; }
+
+  .glass {
+    @apply border border-zinc-900/10 bg-white/70 backdrop-blur-xl backdrop-saturate-150
+           dark:border-white/10 dark:bg-ink-900/60;
+  }
+  .card {
+    @apply rounded-3xl border border-zinc-900/[0.08] bg-white/80
+           dark:border-white/[0.08] dark:bg-white/[0.025];
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-zinc-900/10 bg-zinc-900/[0.03]
+           px-3 py-1 font-mono text-[11px] text-zinc-600
+           dark:border-white/10 dark:bg-white/[0.04] dark:text-zinc-300;
+  }
+
+  .btn {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-medium
+           transition-[background-color,box-shadow,border-color] duration-300 active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply bg-zinc-900 text-white shadow-glow hover:bg-zinc-800
+           dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100;
+  }
+  .btn-ghost {
+    @apply border border-zinc-900/10 bg-white/50 backdrop-blur hover:border-zinc-900/20 hover:bg-white
+           dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-white/20 dark:hover:bg-white/[0.06];
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(110deg, rgb(var(--accent)), rgb(var(--accent-2)) 55%, rgb(var(--accent-3)));
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-c) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-c) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 35%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 35%, transparent 100%);
+  }
+
+  .aurora-blob {
+    position: absolute; border-radius: 9999px; filter: blur(90px);
+    opacity: 0.4; animation: aurora 20s ease-in-out infinite; will-change: transform;
+  }
+  .dark .aurora-blob { opacity: 0.65; }
+
+  /* Cursor-tracked glowing border: outer = 1px border, ::before = glow, inner covers the middle */
+  .spotlight { position: relative; background: var(--border-c); }
+  .spotlight::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(380px circle at var(--x, 50%) var(--y, 50%),
+      rgb(var(--accent) / 0.9), rgb(var(--accent-2) / 0.35) 25%, transparent 50%);
+  }
+  .spotlight:hover::before { opacity: 1; }
+  .spotlight-inner { @apply relative h-full rounded-[calc(1.5rem-1px)] bg-white dark:bg-ink-900; }
+  .spotlight-fill {
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgb(var(--accent) / 0.1), transparent 40%);
+  }
+  .spotlight:hover .spotlight-fill { opacity: 1; }
+
+  /* HUD corner brackets */
+  .hud-frame { position: relative; }
+  .hud-frame::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    --c: rgb(var(--accent) / 0.7);
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 14px 1px no-repeat,
+      linear-gradient(var(--c), var(--c)) top left / 1px 14px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 14px 1px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 1px 14px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 14px 1px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 1px 14px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 14px 1px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 1px 14px no-repeat;
+  }
+}
+
+@keyframes aurora {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 20px) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .aurora-blob { animation: none; }
+}
