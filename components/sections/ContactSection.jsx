@@ -32,12 +32,22 @@ export default function ContactSection() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <Magnetic>
-                <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <a
+                  href={PROFILE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="Let's talk"
+                  className="btn btn-primary"
+                >
                   Hire Me on LinkedIn <ArrowUpRight className="h-4 w-4" />
                 </a>
               </Magnetic>
               <Magnetic strength={0.25}>
-                <button onClick={copy} className="btn btn-ghost font-mono">
+                <button
+                  onClick={copy}
+                  data-cursor="Copy"
+                  className="btn btn-ghost font-mono"
+                >
                   {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
                   {copied ? 'Copied!' : PROFILE.email}
                 </button>

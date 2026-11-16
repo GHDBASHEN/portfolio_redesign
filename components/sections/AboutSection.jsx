@@ -5,6 +5,7 @@ import Reveal from '@/components/ui/Reveal';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Magnetic from '@/components/ui/Magnetic';
+import ScrollRevealText from '@/components/scroll/ScrollRevealText';
 import { PROFILE, SKILLS } from '@/lib/profile';
 
 function LocalTime() {
@@ -65,10 +66,11 @@ export default function AboutSection() {
         <Reveal className="md:col-span-4 md:row-span-2">
           <SpotlightCard className="h-full" innerClassName="p-7 sm:p-9">
             <p className="eyebrow">// bio</p>
-            <p className="mt-6 text-2xl font-medium leading-snug tracking-tight sm:text-[1.7rem]">
-              I&apos;m <span className="text-gradient">{PROFILE.fullName}</span> — a software engineer from
-              Sri Lanka who cares about the full journey from database schema to the last pixel.
-            </p>
+            <ScrollRevealText
+              className="mt-6 text-2xl font-medium leading-snug tracking-tight sm:text-[1.7rem]"
+              text="I'm G. H. D. B. Ashen — a software engineer from Sri Lanka who cares about the full journey from database schema to the last pixel."
+              highlight={['G.', 'H.', 'D.', 'B.', 'Ashen']}
+            />
             <p className="mt-6 max-w-xl leading-relaxed text-zinc-600 dark:text-zinc-400">
               I build full-stack products with Next.js and Node.js, design dependable services with Java
               and Spring Boot, and integrate machine learning and intelligent agents where they make a
@@ -160,7 +162,7 @@ export default function AboutSection() {
               <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Full history, projects and references. PDF.</p>
             </div>
             <Magnetic strength={0.2} className="self-start">
-              <a href={PROFILE.cvPath} download className="btn btn-primary h-11">
+              <a href={PROFILE.cvPath} download data-cursor="Download" className="btn btn-primary h-11">
                 Download CV
               </a>
             </Magnetic>

@@ -10,6 +10,13 @@ module.exports = {
       },
       colors: {
         ink: { 950: '#05060A', 900: '#0A0C12', 800: '#11141C', 700: '#1A1E29' },
+        eco: {
+          50: '#FCFAF5',
+          100: '#F6F4ED',
+          200: '#EBE7DF',
+          300: '#DFD9CC',
+          ink: '#1A1D1A',
+        },
         accent: { DEFAULT: 'rgb(var(--accent) / <alpha-value>)' },
         signal: { DEFAULT: 'rgb(var(--accent-2) / <alpha-value>)' },
         magenta: { DEFAULT: 'rgb(var(--accent-3) / <alpha-value>)' },

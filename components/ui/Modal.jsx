@@ -1,21 +1,31 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useLenis } from '@/components/scroll/SmoothScroll';
 
 export default function Modal({ open, onClose, children, labelledBy }) {
+  const [mounted, setMounted] = useState(false);
+  const lenis = useLenis();
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === 'Escape' && onClose();
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    lenis?.stop();
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prev;
+      lenis?.start();
       window.removeEventListener('keydown', onKey);
     };
-  }, [open, onClose]);
+  }, [open, onClose, lenis]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -29,6 +39,7 @@ export default function Modal({ open, onClose, children, labelledBy }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={labelledBy}
+            data-lenis-prevent
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 8 }}
@@ -46,6 +57,7 @@ export default function Modal({ open, onClose, children, labelledBy }) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.getElementById('portal-root') ?? document.body
   );
 }

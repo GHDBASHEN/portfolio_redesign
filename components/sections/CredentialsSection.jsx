@@ -60,7 +60,7 @@ export default function CredentialsSection({ certificates = [], awards = [] }) {
             {tab === id && (
               <motion.span
                 layoutId="cred-tab"
-                className="absolute inset-0 rounded-full bg-white shadow-sm ring-1 ring-zinc-900/10 dark:bg-white/10 dark:ring-white/15"
+                className="absolute inset-0 rounded-full bg-eco-50 shadow-sm ring-1 ring-black/10 dark:bg-white/10 dark:ring-white/15"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
             )}
@@ -95,12 +95,13 @@ export default function CredentialsSection({ certificates = [], awards = [] }) {
                 transition={{ delay: Math.min(i * 0.05, 0.4), duration: 0.5 }}
                 className="relative pl-10 sm:pl-12"
               >
-                <span className="absolute left-[6px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-accent bg-zinc-50 shadow-[0_0_12px_rgb(var(--accent)/0.7)] dark:bg-ink-950 sm:left-[10px]" />
+                <span className="absolute left-[6px] top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-accent bg-eco-200 shadow-[0_0_12px_rgb(var(--accent)/0.7)] dark:bg-ink-950 sm:left-[10px]" />
                 <button
                   onClick={() => setSelected(it)}
+                  data-cursor="Preview"
                   className="card group flex w-full items-center gap-4 p-3 text-left transition-colors duration-300 hover:border-accent/40 sm:gap-5 sm:p-4"
                 >
-                  <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-zinc-100 dark:bg-ink-800 sm:h-20 sm:w-28">
+                  <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-eco-200 dark:bg-ink-800 sm:h-20 sm:w-28">
                     {it.imageUrl && (
                       <SmartImage src={it.imageUrl} alt="" fill sizes="112px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                     )}

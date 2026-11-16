@@ -17,28 +17,36 @@ function ProjectCard({ project, index, featured }) {
     <Reveal delay={(index % 2) * 0.08} className={featured ? 'md:col-span-2' : ''}>
       <TiltCard className="card overflow-hidden" max={featured ? 3.5 : 6}>
         <article className={`flex h-full flex-col ${featured ? 'md:grid md:grid-cols-[1.35fr_1fr]' : ''}`}>
-          <div
-            className={`relative overflow-hidden bg-zinc-100 dark:bg-ink-800 ${
-              featured ? 'aspect-[16/10] md:aspect-auto md:min-h-[24rem]' : 'aspect-[16/10]'
-            }`}
+          <a
+            href={project.projectUrl || '#'}
+            target={project.projectUrl ? '_blank' : undefined}
+            rel={project.projectUrl ? 'noopener noreferrer' : undefined}
+            data-cursor="Visit"
+            className="block"
           >
-            {project.imageUrl ? (
-              <SmartImage
-                src={project.imageUrl}
-                alt={`${project.name} preview`}
-                fill
-                sizes={featured ? '(min-width: 768px) 60vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                priority={index === 0}
-              />
-            ) : (
-              <div className="grid h-full place-items-center text-zinc-400"><ImageOff className="h-6 w-6" /></div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-            <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/40 px-3 py-1 font-mono text-[11px] text-white backdrop-blur">
-              {String(index + 1).padStart(2, '0')}{featured && ' · Featured'}
-            </span>
-          </div>
+            <div
+              className={`relative overflow-hidden bg-eco-200 dark:bg-ink-800 ${
+                featured ? 'aspect-[16/10] md:aspect-auto md:min-h-[24rem]' : 'aspect-[16/10]'
+              }`}
+            >
+              {project.imageUrl ? (
+                <SmartImage
+                  src={project.imageUrl}
+                  alt={`${project.name} preview`}
+                  fill
+                  sizes={featured ? '(min-width: 768px) 60vw, 100vw' : '(min-width: 768px) 50vw, 100vw'}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  priority={index === 0}
+                />
+              ) : (
+                <div className="grid h-full place-items-center text-zinc-400"><ImageOff className="h-6 w-6" /></div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/40 px-3 py-1 font-mono text-[11px] text-white backdrop-blur">
+                {String(index + 1).padStart(2, '0')}{featured && ' · Featured'}
+              </span>
+            </div>
+          </a>
 
           <div className="flex flex-1 flex-col p-6 sm:p-7">
             <div className="flex items-center justify-between gap-3 font-mono text-[11px] text-zinc-500">

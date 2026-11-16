@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { ArrowUpRight, Award, FolderGit2, Layers, Mail, Moon, Sun, Terminal, User } from 'lucide-react';
 import { PROFILE } from '@/lib/profile';
+import { useActiveSection } from '@/lib/sections';
+import ScrambleText from '@/components/ui/ScrambleText';
 
 export const NAV = [
   { id: 'home', label: 'Home', icon: Terminal },
@@ -43,25 +45,14 @@ function ThemeToggle() {
 }
 
 export default function Header() {
-  const [active, setActive] = useState('home');
+  const active = useActiveSection();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: '-45% 0px -50% 0px' }
-    );
-    NAV.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', onScroll);
-    };
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
@@ -78,7 +69,7 @@ export default function Header() {
         <a
           href="#home"
           aria-label="Back to top"
-          className="mr-1 grid h-9 w-9 place-items-center rounded-full bg-zinc-900 font-mono text-[11px] font-bold text-white dark:bg-white dark:text-zinc-900"
+          className="mr-1 grid h-9 w-9 place-items-center rounded-full bg-eco-ink font-mono text-[11px] font-bold text-eco-50 dark:bg-white dark:text-zinc-900"
         >
           BA
         </a>
@@ -91,19 +82,19 @@ export default function Header() {
             aria-current={active === id ? 'true' : undefined}
             className={`relative flex h-9 items-center rounded-full px-2.5 text-sm transition-colors md:px-3.5 ${
               active === id
-                ? 'text-zinc-900 dark:text-white'
-                : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+                ? 'text-eco-ink dark:text-white'
+                : 'text-zinc-600 hover:text-eco-ink dark:text-zinc-400 dark:hover:text-white'
             }`}
           >
             {active === id && (
               <motion.span
                 layoutId="nav-active"
-                className="absolute inset-0 rounded-full bg-zinc-900/[0.06] ring-1 ring-zinc-900/10 dark:bg-white/10 dark:ring-white/15"
+                className="absolute inset-0 rounded-full bg-black/[0.06] ring-1 ring-black/10 dark:bg-white/10 dark:ring-white/15"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
             )}
             <Icon className="relative h-4 w-4 md:hidden" />
-            <span className="relative hidden md:inline">{label}</span>
+            <ScrambleText text={label} className="relative hidden md:inline" />
           </a>
         ))}
 
@@ -113,6 +104,7 @@ export default function Header() {
           href={PROFILE.linkedin}
           target="_blank"
           rel="noopener noreferrer"
+          data-cursor="Hire me"
           className="ml-1 hidden h-9 items-center gap-1 rounded-full bg-accent px-4 text-sm font-medium text-white transition hover:brightness-110 lg:inline-flex"
         >
           Hire me <ArrowUpRight className="h-3.5 w-3.5" />
