@@ -34,7 +34,7 @@ export default function ProfilePortrait() {
     <div className="relative w-full" style={{ perspective: 1200 }}>
       <motion.div
         ref={ref}
-        data-cursor="Say hi"
+        data-cursor="hi!"
         onMouseMove={onMove}
         onMouseLeave={reset}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
