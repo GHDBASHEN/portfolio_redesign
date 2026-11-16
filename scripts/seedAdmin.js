@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // We need to import the model in a way that Node.js understands
-const Admin = require('../models/Admin.js');
+const AdminModule = require('../models/Admin.js');
+const Admin = AdminModule.default || AdminModule;
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const ADMIN_USERNAME = process.env.INITIAL_ADMIN_USERNAME;

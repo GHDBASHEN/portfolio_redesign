@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ArrowUpRight, Check, Copy } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight, Check, Copy, Lock } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 import Magnetic from '@/components/ui/Magnetic';
 import { PROFILE } from '@/lib/profile';
@@ -59,7 +60,17 @@ export default function ContactSection() {
 
       <footer className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-zinc-900/[0.08] px-5 py-8 font-mono text-[11px] text-zinc-500 dark:border-white/[0.08] sm:flex-row sm:px-8">
         <p>© {new Date().getFullYear()} {PROFILE.fullName}</p>
-        <p>{PROFILE.location} · Built with Next.js</p>
+        <div className="flex items-center gap-4">
+          <p>{PROFILE.location} · Built with Next.js</p>
+          <span className="h-3 w-px bg-zinc-900/10 dark:bg-white/10" />
+          <Link
+            href="/admin/login"
+            data-cursor="Admin"
+            className="inline-flex items-center gap-1 transition-colors hover:text-accent"
+          >
+            <Lock className="h-3 w-3" /> Admin
+          </Link>
+        </div>
       </footer>
     </>
   );

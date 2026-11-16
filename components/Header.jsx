@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import { ArrowUpRight, Award, FolderGit2, Layers, Mail, Moon, Sun, Terminal, User } from 'lucide-react';
+import { ArrowUpRight, Award, FolderGit2, Layers, Lock, Mail, Moon, Sun, Terminal, User } from 'lucide-react';
 import { PROFILE } from '@/lib/profile';
 import { useActiveSection } from '@/lib/sections';
 import ScrambleText from '@/components/ui/ScrambleText';
@@ -100,6 +101,14 @@ export default function Header() {
 
         <span className="mx-1 h-5 w-px bg-zinc-900/10 dark:bg-white/10" />
         <ThemeToggle />
+        <Link
+          href="/admin/login"
+          aria-label="Admin console"
+          data-cursor="Admin"
+          className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full text-zinc-600 transition hover:bg-zinc-900/5 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white"
+        >
+          <Lock className="h-4 w-4" />
+        </Link>
         <a
           href={PROFILE.linkedin}
           target="_blank"
