@@ -51,7 +51,35 @@ const SortableItem = ({ item, type, titleKey, editPathPrefix, handleDelete, isDa
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          {item[titleKey]}
+          <span>{item[titleKey]}</span>
+          {type === 'project' && (
+            <div className="flex items-center gap-1.5">
+              <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                item.status === 'Ongoing'
+                  ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                  : item.status === 'Done (Not Hosted)'
+                  ? 'bg-gray-500/10 text-gray-400 border border-gray-500/20'
+                  : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+              }`}>
+                <span className={`h-1.5 w-1.5 rounded-full ${
+                  item.status === 'Ongoing' ? 'bg-amber-400' : item.status === 'Done (Not Hosted)' ? 'bg-gray-400' : 'bg-emerald-400'
+                }`} />
+                {item.status || 'Live'}
+              </span>
+
+              {item.videoUrl && (
+                <a
+                  href={item.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20"
+                  title="Watch Video Demo"
+                >
+                  ▶ Video
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

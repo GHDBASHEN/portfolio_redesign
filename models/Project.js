@@ -12,7 +12,18 @@ const ProjectSchema = new mongoose.Schema({
   },
   projectUrl: {
     type: String,
-    required: [true, 'Please provide the project URL.'],
+    trim: true,
+    default: '',
+  },
+  videoUrl: {
+    type: String,
+    trim: true,
+    default: '',
+  },
+  status: {
+    type: String,
+    enum: ['Live', 'Ongoing', 'Done (Not Hosted)'],
+    default: 'Live',
   },
   imageUrl: {
     type: String,
