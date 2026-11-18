@@ -11,7 +11,7 @@ export const NAV = [
   { id: 'home', label: 'Home', icon: Terminal },
   { id: 'about', label: 'About', icon: User },
   { id: 'services', label: 'Services', icon: Layers },
-  { id: 'projects', label: 'Work', icon: FolderGit2 },
+  { id: 'projects', label: 'Projects', icon: FolderGit2 },
   { id: 'credentials', label: 'Credentials', icon: Award },
   { id: 'contact', label: 'Contact', icon: Mail },
 ];
