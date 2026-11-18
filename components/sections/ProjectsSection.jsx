@@ -1,8 +1,10 @@
-import { ArrowUpRight, ImageOff, Play } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, ChevronDown, ImageOff, Play } from 'lucide-react';
 import Reveal from '@/components/ui/Reveal';
 import TiltCard from '@/components/ui/TiltCard';
 import SmartImage from '@/components/ui/SmartImage';
 import SectionHeading from '@/components/ui/SectionHeading';
+import Magnetic from '@/components/ui/Magnetic';
 
 const hostOf = (url) => {
   try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return null; }
@@ -195,6 +197,20 @@ function ProjectCard({ project, index, featured }) {
 }
 
 export default function ProjectsSection({ projects = [] }) {
+  const [showAll, setShowAll] = useState(false);
+  const hasMore = projects.length > 3;
+  const displayedProjects = showAll || !hasMore ? projects : projects.slice(0, 3);
+
+  const handleToggle = () => {
+    if (showAll) {
+      const el = document.getElementById('projects');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    setShowAll((prev) => !prev);
+  };
+
   return (
     <section id="projects" className="section">
       <SectionHeading
@@ -206,11 +222,34 @@ export default function ProjectsSection({ projects = [] }) {
       {projects.length === 0 ? (
         <p className="card p-10 text-center text-zinc-500">Projects are on their way.</p>
       ) : (
-        <div className="grid gap-5 md:grid-cols-2">
-          {projects.map((p, i) => (
-            <ProjectCard key={p._id} project={p} index={i} featured={i === 0} />
-          ))}
-        </div>
+        <>
+          <div className="grid gap-5 md:grid-cols-2">
+            {displayedProjects.map((p, i) => (
+              <ProjectCard key={p._id || i} project={p} index={i} featured={i === 0} />
+            ))}
+          </div>
+
+          {hasMore && (
+            <div className="mt-10 flex justify-center">
+              <Magnetic strength={0.25}>
+                <button
+                  type="button"
+                  onClick={handleToggle}
+                  data-cursor={showAll ? 'Collapse' : 'See More'}
+                  className="btn btn-ghost group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all hover:border-accent/40 hover:bg-accent/10 hover:text-accent shadow-sm"
+                  aria-expanded={showAll}
+                >
+                  <span>{showAll ? 'See less' : 'See more'}</span>
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-y-0.5 ${
+                      showAll ? 'rotate-180 group-hover:-translate-y-0.5' : ''
+                    }`}
+                  />
+                </button>
+              </Magnetic>
+            </div>
+          )}
+        </>
       )}
     </section>
   );
