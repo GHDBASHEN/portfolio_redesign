@@ -12,6 +12,14 @@ export default function ProjectForm({ projectToEdit }) {
   const [name, setName] = useState(projectToEdit?.name || '');
   const [status, setStatus] = useState(projectToEdit?.status || 'Live');
   const [description, setDescription] = useState(projectToEdit?.description || '');
+  const [techStack, setTechStack] = useState(() => {
+    if (!projectToEdit?.techStack) return '';
+    if (Array.isArray(projectToEdit.techStack)) {
+      return projectToEdit.techStack.join(', ');
+    }
+    return String(projectToEdit.techStack);
+  });
+  const [contribution, setContribution] = useState(projectToEdit?.contribution || '');
   const [projectUrl, setProjectUrl] = useState(projectToEdit?.projectUrl || '');
   const [videoUrl, setVideoUrl] = useState(projectToEdit?.videoUrl || '');
   const [image, setImage] = useState(null);
@@ -35,6 +43,8 @@ export default function ProjectForm({ projectToEdit }) {
     formData.append('name', name);
     formData.append('status', status);
     formData.append('description', description);
+    formData.append('techStack', techStack);
+    formData.append('contribution', contribution);
     formData.append('projectUrl', projectUrl);
     formData.append('videoUrl', videoUrl);
     if (image) {
@@ -162,6 +172,40 @@ export default function ProjectForm({ projectToEdit }) {
           placeholder="Detailed overview of what you built, architecture, stack and problem solved..."
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
         />
+      </div>
+
+      <div>
+        <label htmlFor="techStack" className="block text-sm font-semibold text-gray-800">
+          Tech Stack <span className="text-xs font-normal text-gray-500">(Comma separated)</span>
+        </label>
+        <input
+          type="text"
+          id="techStack"
+          value={techStack}
+          onChange={(e) => setTechStack(e.target.value)}
+          placeholder="e.g. Next.js, React, Tailwind CSS, TypeScript, MongoDB"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+        />
+        <p className="mt-1 text-xs text-gray-500">
+          Enter technologies separated by commas (e.g. Next.js, Spring Boot, MySQL, Tailwind CSS).
+        </p>
+      </div>
+
+      <div>
+        <label htmlFor="contribution" className="block text-sm font-semibold text-gray-800">
+          My Contribution & Role
+        </label>
+        <textarea
+          id="contribution"
+          value={contribution}
+          onChange={(e) => setContribution(e.target.value)}
+          rows="4"
+          placeholder="Detail your role and key accomplishments (e.g. Led full-stack development, designed responsive UI/UX, built auth & API routes, optimized database queries)..."
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+        />
+        <p className="mt-1 text-xs text-gray-500">
+          Tip: You can use bullet points or separate lines for multiple key points.
+        </p>
       </div>
 
       <div>

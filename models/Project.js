@@ -37,6 +37,15 @@ const ProjectSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  techStack: {
+    type: [String],
+    default: [],
+  },
+  contribution: {
+    type: String,
+    default: '',
+    trim: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

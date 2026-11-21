@@ -54,6 +54,13 @@ export default async function handler(req, res) {
                 const lastProject = await Project.findOne().sort('-order');
                 const nextOrder = lastProject && lastProject.order !== undefined ? lastProject.order + 1 : 0;
 
+                const rawTechStack = Array.isArray(fields.techStack) ? fields.techStack[0] : (fields.techStack || '');
+                const techStackArray = typeof rawTechStack === 'string'
+                    ? rawTechStack.split(',').map((s) => s.trim()).filter(Boolean)
+                    : (Array.isArray(rawTechStack) ? rawTechStack : []);
+
+                const rawContribution = Array.isArray(fields.contribution) ? fields.contribution[0] : (fields.contribution || '');
+
                 const projectData = {
                     name: Array.isArray(fields.name) ? fields.name[0] : fields.name,
                     description: Array.isArray(fields.description) ? fields.description[0] : fields.description,
@@ -62,6 +69,8 @@ export default async function handler(req, res) {
                     status: Array.isArray(fields.status) ? fields.status[0] : (fields.status || 'Live'),
                     imageUrl: uploadResult.secure_url,
                     order: nextOrder,
+                    techStack: techStackArray,
+                    contribution: String(rawContribution).trim(),
                 };
                 const newProject = await Project.create(projectData);
                 return res.status(201).json(newProject);
